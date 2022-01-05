@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>fr.o80.FoldFolders</id>
+    <name>Fold Folders</name>
+    <vendor email="operez@olivierperez.fr" url="https://github.com/olivierperez">Olivier Perez</vendor>
+
+    <description><![CDATA[
+    We fold folders for you, so you won't have to see them all.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <action id="ComposeAction" class="fr.o80.fold.GroupAction" icon="AllIcons.ObjectBrowser.FlattenPackages">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="AddToFavorites"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <treeStructureProvider implementation="fr.o80.fold.ProjectStructureProvider"/>
+    </extensions>
+
+    <!-- Not yet implemented!
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools" instance="fr.o80.fold.SettingConfigurable"/>
+    </extensions>
+    -->
+</idea-plugin>
