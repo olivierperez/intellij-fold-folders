@@ -1,10 +1,11 @@
 package fr.o80.fold.data.model
 
 data class Settings(
-    val groupedFolders: List<FolderSettings> = listOf()
+    val folders: Map<String, FolderSettings> = mapOf()
 )
 
-class FolderSettings(
+data class FolderSettings(
     val path: String,
-    val regex: String
+    val regex: String,
+    val grouped: Boolean
 )

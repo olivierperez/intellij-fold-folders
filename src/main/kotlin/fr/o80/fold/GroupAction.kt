@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAwareAction
 import com.intellij.psi.PsiDirectory
 import fr.o80.fold.data.SettingsManager
+import fr.o80.fold.data.SettingsManager.getFolderSettings
 import fr.o80.fold.ui.GroupDialog
 import fr.o80.fold.utils.navigatable
 import fr.o80.fold.utils.refreshProjectView
@@ -19,7 +20,7 @@ class GroupAction : DumbAwareAction() {
         if (nav is PsiDirectory) {
             val path = nav.virtualFile.path
 
-            if (SettingsManager.isGrouped(path)) {
+            if (getFolderSettings(path)?.grouped == true) {
                 SettingsManager.removeGroupedFolder(path)
                 project?.refreshProjectView()
             } else {
@@ -43,7 +44,7 @@ class GroupAction : DumbAwareAction() {
             val nav = actionEvent.navigatable
             if (nav is PsiDirectory) {
                 val path = nav.virtualFile.path
-                if (SettingsManager.isGrouped(path)) {
+                if (getFolderSettings(path)?.grouped == true) {
                     actionEvent.presentation.text = DECOMPOSE
                 } else {
                     actionEvent.presentation.text = COMPOSE

@@ -33,6 +33,7 @@ class ProjectStructureProvider : TreeStructureProvider {
         val folderSettings = SettingsManager.getFolderSettings(path)
 
         return folderSettings
+            ?.takeIf { it.grouped }
             ?.let { createChildrenGroups(children, it.regex, viewSettings) }
             ?: children
     }

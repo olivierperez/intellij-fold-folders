@@ -9,33 +9,26 @@ import fr.o80.fold.data.model.Settings
 
 object SettingsManager {
 
+    private val gson = Gson()
+
     private const val KEY_SETTINGS_FOLDERS = "SETTINGS_FOLDERS"
 
     fun getFolderSettings(folder: String): FolderSettings? {
         return currentProject?.let { project ->
-            val settings = getSettings(project)
-            settings.groupedFolders.firstOrNull { it.path == folder }
+            getSettings(project).folders[folder]
         }
-    }
-
-    fun isGrouped(path: String): Boolean {
-        return getFolderSettings(path) != null
     }
 
     fun addGroupedFolder(folder: String, regex: String) {
         currentProject?.let { project ->
-            val gson = Gson()
-            val settings = getSettings(project)
-            val newSettings = settings.copy(groupedFolders = settings.groupedFolders + FolderSettings(folder, regex))
-            PropertiesComponent.getInstance(project).setValue(KEY_SETTINGS_FOLDERS, gson.toJson(newSettings))
+            val settings = getSettings(project).withGrouped(folder, regex)
+            PropertiesComponent.getInstance(project).setValue(KEY_SETTINGS_FOLDERS, gson.toJson(settings))
         }
     }
 
     fun removeGroupedFolder(folder: String) {
         currentProject?.let { project ->
-            val gson = Gson()
-            val settings = getSettings(project)
-            val newSettings = settings.copy(groupedFolders = settings.groupedFolders.filterNot { it.path == folder })
+            val newSettings = getSettings(project).withUngrouped(folder)
             PropertiesComponent.getInstance(project).setValue(KEY_SETTINGS_FOLDERS, gson.toJson(newSettings))
         }
     }
@@ -45,11 +38,34 @@ object SettingsManager {
             .getValue(KEY_SETTINGS_FOLDERS)
             ?.let { json ->
                 try {
-                    Gson().fromJson(json, Settings::class.java)
+                    gson.fromJson(json, Settings::class.java)
                 } catch (e: Exception) {
                     Settings()
                 }
             }
             ?: Settings()
+    }
+}
+
+private fun Settings.withGrouped(folder: String, regex: String): Settings {
+    val previousFolderSettings = this.folders[folder]
+
+    return if (previousFolderSettings == null) {
+        val settingsToInsert = folder to FolderSettings(folder, regex, true)
+        this.copy(folders = this.folders + settingsToInsert)
+    } else {
+        val settingsToInsert = folder to previousFolderSettings.copy(grouped = true)
+        this.copy(folders = this.folders + settingsToInsert)
+    }
+}
+
+fun Settings.withUngrouped(folder: String): Settings {
+    val previousFolderSettings = this.folders[folder]
+
+    return if (previousFolderSettings == null) {
+        this.copy(folders = this.folders - folder)
+    } else {
+        val settingsToUpdate = folder to previousFolderSettings.copy(grouped = false)
+        this.copy(folders = this.folders + settingsToUpdate)
     }
 }

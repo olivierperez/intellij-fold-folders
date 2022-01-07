@@ -1,4 +1,4 @@
-rootProject.name = "FoldFeatures"
+rootProject.name = "intellij-fold-folders"
 
 pluginManagement {
     plugins {
