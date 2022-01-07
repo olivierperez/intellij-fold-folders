@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "fr.o80"
-version = "1.5"
+version = "1.6"
 
 repositories {
     mavenCentral()
@@ -28,9 +28,18 @@ intellij {
 tasks {
     patchPluginXml {
         changeNotes.set("""
-            Initial release of the plugin.
+            <h1>1.6</h1>
+            <ul>
+                <li>Make the UI fits IntelliJ, and drop Jetbrains Compose</li>
+                <li>Validation of Regex format</li>
+            </ul>
+            <h1>1.0 to 1.5</h1>
+            <ul>
+                <li>Initial release of the plugin</li>
+            </ul>
             """.trimIndent())
         sinceBuild.set("192")
+        untilBuild.set("213")
     }
 }
 tasks.getByName<Test>("test") {
