@@ -1,4 +1,4 @@
-package fr.o80.fold
+package fr.o80.fold.utils
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager

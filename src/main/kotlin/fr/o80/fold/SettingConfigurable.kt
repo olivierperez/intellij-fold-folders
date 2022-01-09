@@ -4,7 +4,7 @@ import com.intellij.ide.projectView.ProjectView
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ConfigurationException
-import fr.o80.fold.Utils.currentProject
+import fr.o80.fold.utils.Utils.currentProject
 import org.jetbrains.annotations.Nls
 import java.awt.event.ActionEvent
 import javax.swing.AbstractButton

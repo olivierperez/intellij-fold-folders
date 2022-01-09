@@ -3,9 +3,9 @@ package fr.o80.fold.data
 import com.google.gson.Gson
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.project.Project
-import fr.o80.fold.Utils.currentProject
 import fr.o80.fold.data.model.FolderSettings
 import fr.o80.fold.data.model.Settings
+import fr.o80.fold.utils.Utils.currentProject
 
 object SettingsManager {
 

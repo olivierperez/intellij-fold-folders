@@ -28,7 +28,8 @@ class GroupAction : DumbAwareAction() {
                 GroupDialog(
                     project,
                     title = "Configure The Group",
-                    initialRegex = folderSettings?.regex ?: "([^_-]+)[_-]([^_-]+)(:?[_-](.+))?",
+                    initialRegex = folderSettings?.regex ?: Configuration.DEFAULT_REGEX,
+                    defaultRegex = Configuration.DEFAULT_REGEX,
                     onOk = { regex ->
                         SettingsManager.addGroupedFolder(path, regex)
                         project?.refreshProjectView()

@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiDirectory
 import fr.o80.fold.data.SettingsManager
 import fr.o80.fold.fs.GroupingNodeFactory
+import fr.o80.fold.utils.Utils
 
 class ProjectStructureProvider : TreeStructureProvider {
 
