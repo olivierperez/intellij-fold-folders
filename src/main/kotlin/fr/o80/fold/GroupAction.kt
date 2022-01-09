@@ -20,14 +20,15 @@ class GroupAction : DumbAwareAction() {
         if (nav is PsiDirectory) {
             val path = nav.virtualFile.path
 
-            if (getFolderSettings(path)?.grouped == true) {
+            val folderSettings = getFolderSettings(path)
+            if (folderSettings?.grouped == true) {
                 SettingsManager.removeGroupedFolder(path)
                 project?.refreshProjectView()
             } else {
                 GroupDialog(
                     project,
                     title = "Configure The Group",
-                    initialRegex = "([^_-]+)[_-]([^_-]+)(:?[_-](.+))?",
+                    initialRegex = folderSettings?.regex ?: "([^_-]+)[_-]([^_-]+)(:?[_-](.+))?",
                     onOk = { regex ->
                         SettingsManager.addGroupedFolder(path, regex)
                         project?.refreshProjectView()
