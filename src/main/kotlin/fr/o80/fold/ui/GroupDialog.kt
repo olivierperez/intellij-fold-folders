@@ -33,7 +33,7 @@ class GroupDialog(
                 textField(::regex)
                     .focused()
                     .growPolicy(GrowPolicy.MEDIUM_TEXT)
-                    .withValidationOnApply { validateRegex(it) }
+                    .withValidationOnInput { validateRegex(it) }
             }
             row {
                 comment("Group 1: unused<br/>Group 2: the folder name<br/>Group x: unused")

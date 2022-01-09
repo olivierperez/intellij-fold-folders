@@ -51,10 +51,10 @@ private fun Settings.withGrouped(folder: String, regex: String): Settings {
     val previousFolderSettings = this.folders[folder]
 
     return if (previousFolderSettings == null) {
-        val settingsToInsert = folder to FolderSettings(folder, regex, true)
+        val settingsToInsert = folder to FolderSettings(folder, regex = regex, grouped = true)
         this.copy(folders = this.folders + settingsToInsert)
     } else {
-        val settingsToInsert = folder to previousFolderSettings.copy(grouped = true)
+        val settingsToInsert = folder to previousFolderSettings.copy(regex = regex, grouped = true)
         this.copy(folders = this.folders + settingsToInsert)
     }
 }
