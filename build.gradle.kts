@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("org.jetbrains.intellij") version "1.0"
+    id("org.jetbrains.intellij")
     kotlin("jvm")
     java
 }
@@ -22,7 +24,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2021.2")
+    version.set("2021.2.3")
 }
 
 tasks {
@@ -39,9 +41,19 @@ tasks {
             </ul>
             """.trimIndent())
         sinceBuild.set("192")
-        untilBuild.set("213")
+        untilBuild.set("213.*")
     }
 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "11"
+}
+
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
