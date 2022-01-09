@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "fr.o80"
-version = "1.6"
+version = "1.7"
 
 repositories {
     mavenCentral()
@@ -30,6 +30,11 @@ intellij {
 tasks {
     patchPluginXml {
         changeNotes.set("""
+            <h1>1.7</h1>
+            <ul>
+                <li>Remember previous regex for a given folder</li>
+                <li>Reset regex to the default one in wizard</li>
+            </ul>
             <h1>1.6</h1>
             <ul>
                 <li>Make the UI fits IntelliJ, and drop Jetbrains Compose</li>
